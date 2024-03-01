@@ -232,13 +232,14 @@ app.get("/all_employee_details_Read", async (req, res) => {
 });
 
 
-app.get("/employee_detail_Read:_id", async (req, res) => {
+app.get("/employee_detail_Read/:_id", async (req, res) => { // Corrected route parameter syntax
   try {
     const emp_code = req.params._id;
     const connection = await oracledb.getConnection(dbConfig);
     const result = await connection.execute(`select * from emp where emp_code='${emp_code}'`);
     const data = result.rows; // Assuming the result contains an array of rows
     console.log('Data Retrieved successfully');
+    console.log(data);
     res.json(data); // Send the data as JSON to the client
   } catch (error) {
     console.error(error);
